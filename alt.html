@@ -1,0 +1,193 @@
+<html>
+<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+<script>
+$(document).ready(function() {
+	$("#drop-zone").on('dragenter', function (e){
+	e.preventDefault();
+	$(this).css('background', '#BBD5B8');
+	});
+
+	$("#drop-zone").on('dragover', function (e){
+	e.preventDefault();
+	});
+
+	$("#drop-zone").on('drop', function (e){
+	$(this).css('background', '#D8F9D3');
+	e.preventDefault();
+	var image = e.originalEvent.dataTransfer.files;
+	createFormData(image);
+	});
+});
+
+function createFormData(image) {
+	var formImage = new FormData();
+	formImage.append('userImage', image[0]);
+	uploadFormData(formImage);
+}
+
+function uploadFormData(formData) {
+	$.ajax({
+	url: "upload.php",
+	type: "POST",
+	data: formData,
+	contentType:false,
+	cache: false,
+	processData: false,
+	success: function(data){
+		$('#drop-zone').append(data);
+	}
+});
+}
+</script>
+<style>
+/*table layout - last column*/
+table tr td:last-child {
+    white-space: nowrap;
+    width: 1px;
+    text-align:right;
+}
+
+/* layout.css Style */
+.upload-drop-zone {
+  height: 200px;
+  border-width: 2px;
+  margin-bottom: 20px;
+}
+
+/* skin.css Style*/
+.upload-drop-zone {
+  color: #ccc;
+  border-style: dashed;
+  border-color: #ccc;
+  line-height: 200px;
+  text-align: center
+}
+.upload-drop-zone.drop {
+  color: #222;
+  border-color: #222;
+}
+
+
+
+.image-preview-input {
+    position: relative;
+    overflow: hidden;
+	margin: 0px;    
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;    
+}
+.image-preview-input input[type=file] {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+.image-preview-input-title {
+    margin-left:2px;
+}
+</style>
+</head>
+
+<div class="container"> <br />
+    <div class="row">
+    	<div class="col-md-7">
+			<div class="panel panel-default">
+				<div class="panel-heading"><strong>Upload files</strong> <small> </small></div>
+				<div class="panel-body">
+					<div class="input-group image-preview">
+						<input placeholder="" type="text" class="form-control image-preview-filename" disabled="disabled">
+						<!-- don't give a name === doesn't send on POST/GET --> 
+						<span class="input-group-btn"> 
+						<!-- image-preview-clear button -->
+						<button type="button" class="btn btn-default image-preview-clear" style="display:none;"> <span class="glyphicon glyphicon-remove"></span> Clear </button>
+						<!-- image-preview-input -->
+						<div class="btn btn-default image-preview-input"> <span class="glyphicon glyphicon-folder-open"></span> <span class="image-preview-input-title">Browse</span>
+							<input type="file" accept="image/png, image/jpeg, image/gif" name="input-file-preview"/>
+							<!-- rename it --> 
+						</div>
+						<button type="button" class="btn btn-labeled btn-default"> <span class="btn-label"><i class="glyphicon glyphicon-upload"></i> </span>Upload</button>
+						</span> </div>
+					<!-- /input-group image-preview [TO HERE]--> 
+					
+					<br />
+					
+					<!-- Drop Zone -->
+					<div class="upload-drop-zone" id="drop-zone"> Or drag and drop files here </div>
+					<br />
+					<!-- Progress Bar -->
+					<div class="progress">
+						<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"> <span class="sr-only">60% Complete</span> </div>
+					</div>
+					<br />
+					<!-- Upload Finished -->
+					<div class="js-upload-finished">
+						<h4>Upload history</h4>
+						<div class="list-group"> <a href="#" class="list-group-item list-group-item-danger"><span class="badge alert-danger pull-right">23-11-2014</span>amended-catalogue-01.xls</a> <a href="#" class="list-group-item list-group-item-success"><span class="badge alert-success pull-right">23-11-2014</span>amended-catalogue-01.xls</a> <a href="#" class="list-group-item list-group-item-success"><span class="badge alert-success pull-right">23-11-2014</span>amended-catalogue-01.xls</a> <a href="#" class="list-group-item list-group-item-success"><span class="badge alert-success pull-right">23-11-2014</span>amended-catalogue.xls</a> </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="panel panel-default">
+				<div class="panel-heading"><strong>Download files</strong> <small> </small></div>
+				<div class="panel-body">
+					<form role="form">
+						<div class="form-group">
+							<label for="exampleInputEmail1">From</label>
+							<input type="date" class="form-control" id="fromDate" placeholder="DD/MM/YYYY">
+							<label for="exampleInputEmail1">to</label>
+							<input type="date" class="form-control" id="toDate" placeholder="DD/MM/YYYY">
+						</div>
+					</form>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th data-sortable="true" class="column-01">File </th>
+								<th data-sortable="true" class="column-02">Download</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="column-01"><a data-toggle="tooltip" title="Download <FileName>" href="#">Catalogue</a></td>
+								<td class="column-02"><button type="button" class="btn btn-labeled btn-primary" data-toggle="tooltip" title="Download <FileName>"> <span class="btn-label"><i class="glyphicon glyphicon-download"></i> </span> </button></td>
+							</tr>
+							<tr>
+								<td class="column-01"><a data-toggle="tooltip" title="Download <FileName>" href="#">Delta</a></td>
+								<td class="column-02"><button type="button" class="btn btn-labeled btn-primary" data-toggle="tooltip" title="Download <FileName>"> <span class="btn-label"><i class="glyphicon glyphicon-download"></i> </span> </button></td>
+							</tr>
+							<tr>
+								<td class="column-01"><a data-toggle="tooltip" title="Download <FileName>" href="#">Another file</a></td>
+								<td class="column-02"><button type="button" class="btn btn-labeled btn-primary" data-toggle="tooltip" title="Download <FileName>"> <span class="btn-label"><i class="glyphicon glyphicon-download"></i> </span> </button></td>
+							</tr>
+							<tr>
+								<td class="column-01"><a data-toggle="tooltip" title="Download <FileName>" href="#">Another file</a></td>
+								<td class="column-02"><button type="button" class="btn btn-labeled btn-primary" data-toggle="tooltip" title="Download <FileName>"> <span class="btn-label"><i class="glyphicon glyphicon-download"></i> </span> </button></td>
+							</tr>
+						</tbody>
+					</table>
+					<br />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- /container --> 
+

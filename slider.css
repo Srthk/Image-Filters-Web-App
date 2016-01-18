@@ -1,0 +1,39 @@
+* {
+  box-sizing: border-box;
+  vertical-align: top;
+}
+
+body {
+  margin: 30px;
+  padding: 0;
+  text-align: center;
+}
+
+.progress-wrapper {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+progress-arc {
+  position: relative;
+}
+
+.progress-text {
+  position: absolute;
+  top: 0;
+  text-align: center;
+  width: 100%;
+  margin-top: 85px;
+  font-size: 24px;
+}
+
+circle {
+  fill: #eee;
+  stroke-linecap: round;
+  stroke-width: 5px;
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+.control {
+  position: relative;
+}
