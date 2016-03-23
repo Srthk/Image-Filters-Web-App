@@ -132,8 +132,10 @@ class imageFilters{
     }
 
 	public function blackwhite(){
-
 	   imagefilter($this->image, IMG_FILTER_GRAYSCALE);
+	   imagefilter($this->image, IMG_FILTER_CONTRAST, 30);
+		
+
     }
 
     public function brightness($value = 50){

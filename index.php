@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="slider.css">
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.19/angular.min.js'></script>
-<script src='https://dl.dropbox.com/s/d7w7583y2nicoo3/angular-progress-arc.min.js'></script>
+<script src='ang-progress-arc.js'></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src='slider.js'></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>

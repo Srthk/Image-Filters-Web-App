@@ -4,6 +4,7 @@
 	   imagefilter($image, IMG_FILTER_GRAYSCALE);
 	   return $image;
   }
+  
   if(isset($_GET['hash'])){
   		
 
